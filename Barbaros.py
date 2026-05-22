@@ -5,9 +5,9 @@ def password_strength(password):
 
     # Uzunluk
     if len(password) >= 8:
-        score += 1
+        score += 2
     if len(password) >= 12:
-        score += 1
+        score += 3
 
     # Küçük harf
     if re.search(r"[a-z]", password):
@@ -23,12 +23,12 @@ def password_strength(password):
 
     # Özel karakter
     if re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
-        score += 1
+        score += 2
 
     # Sonuç
-    if score <= 2:
+    if score <= 4:
         return "🔴 Zayıf", score
-    elif score <= 4:
+    elif score <= 7:
         return "🟡 Orta", score
     else:
         return "🟢 Güçlü", score
