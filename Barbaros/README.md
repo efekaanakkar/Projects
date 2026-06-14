@@ -30,7 +30,7 @@ Herhangi bir harici kütüphaneye (third-party dependency) ihtiyaç duymaz, sade
 
 ```bash
 # Depoyu klonlayın
-git clone [https://github.com/kullaniciadi/Barbaros.git](https://github.com/kullaniciadi/Barbaros.git)
+git clone [https://github.com/efekaanakkar/Barbaros.git](https://github.com/efekaanakkar/Barbaros.git)
 
 # Proje dizinine girin
 cd Barbaros
