@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+import argparse
+import sys
+import time
+import requests
+
+# Renklendirme için terminal kodları
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+RED = "\033[91m"
+BLUE = "\033[94m"
+RESET = "\033[0m"
+
+def print_banner():
+    print(f"{BLUE}===================================={RESET}")
+    print(f"{BLUE}             BÖRÜ v1.0              {RESET}")
+    print(f"{BLUE}      Dizin Tarama Asistanı         {RESET}")
+    print(f"{BLUE}===================================={RESET}\n")
+
+def main():
+    print_banner()
+    
+    # Argümanların tanımlanması
+    parser = argparse.ArgumentParser(description="Börü - Gelişmiş Dizin Tarama Aracı")
+    parser.add_argument("--url", required=True, help="Hedef URL (Örn: http://example.com)")
+    parser.add_argument("--wordlist", required=True, help="Wordlist dosyasının yolu")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Tüm denemeleri ve durum kodlarını gösterir")
+    parser.add_argument("--attackmode", choices=["Attack", "Peace"], default="Peace", 
+                        help="Tarama modu: 'Attack' (Hızlı/Sert) veya 'Peace' (Sakin/Yavaş)")
+    
+    args = parser.parse_args()
+    
+    # URL sonundaki slash kontrolü
+    target_url = args.url.rstrip('/')
+    
+    # Wordlist okuma
+    try:
+        with open(args.wordlist, 'r', encoding='utf-8', errors='ignore') as f:
+            words = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+    except FileNotFoundError:
+        print(f"{RED}[-] Hata: '{args.wordlist}' dosyası bulunamadı.{RESET}")
+        sys.exit(1)
+        
+    print(f"{GREEN}[+] Tarama başlatılıyor...{RESET}")
+    print(f"[+] Hedef: {target_url}")
+    print(f"[+] Mod: {args.attackmode}")
+    print(f"[+] Toplam Kelime: {len(words)}\n")
+    print("-" * 50)
+
+    # İstekler arası gecikme süresi (Peace modu için)
+    delay = 0.5 if args.attackmode == "Peace" else 0.0
+    
+    # Tüm logları tutacağımız liste (Ctrl+C durumunda sıralamak için)
+    all_results = []
+
+    try:
+        for word in words:
+            # Kelimenin başındaki slashı temizle
+            path = word.lstrip('/')
+            full_url = f"{target_url}/{path}"
+            
+            try:
+                # İstek gönderimi (User-Agent ekleyerek bazı basit engelleri aşması için)
+                headers = {'User-Agent': 'Boru-Scanner/1.0'}
+                response = requests.get(full_url, headers=headers, timeout=5, allow_redirects=False)
+                status = response.status_code
+                
+                # Sonucu kaydet
+                all_results.append((path, status))
+                
+                # Ekrana yazdırma mantığı
+                if status == 200:
+                    print(f"{GREEN}/{path:<20} ({status}){RESET}")
+                else:
+                    # Sadece 200 bulunca yazdırılacak alan (Eğer verbose kapalıysa)
+                    # Ama verbose (-v) açıksa her şeyi yazdırır
+                    if args.verbose:
+                        if status in [301, 302]:
+                            print(f"{YELLOW}/{path:<20} ({status} - Redirect){RESET}")
+                        elif status >= 500:
+                            print(f"{RED}/{path:<20} ({status} - Server Error){RESET}")
+                        else:
+                            print(f"/{path:<20} ({status})")
+                            
+            except requests.exceptions.RequestException:
+                if args.verbose:
+                    print(f"{RED}/{path:<20} (Bağlantı Hatası){RESET}")
+                    
+            # Peace modundaysa belirlenen süre kadar dinlen
+            if delay > 0:
+                time.sleep(delay)
+                
+        print(f"\n{GREEN}[+] Tarama başarıyla tamamlandı.{RESET}")
+
+    except KeyboardInterrupt:
+        print(f"\n\n{YELLOW}[!] Tarama kullanıcı tarafından durduruldu! Durum raporu hazırlanıyor...{RESET}\n")
+        
+        if args.verbose and all_results:
+            print("-" * 50)
+            print(f"{BLUE}Önem Sırasına Göre Sonuçlar (En Yüksek -> En Düşük):{RESET}")
+            print("-" * 50)
+            
+            # Sonuçları status koduna göre sıralama (200'ler üstte, 404'ler altta)
+            # Custom sorting key: 200-299 en önemli, sonra 300'ler, sonra 500'ler, en son 404'ler
+            def sort_key(item):
+                code = item[1]
+                if 200 <= code < 300:
+                    return 0
+                elif 300 <= code < 400:
+                    return 1
+                elif code >= 500:
+                    return 2
+                elif code == 404:
+                    return 4
+                else:
+                    return 3 # Diğer beklenmeyen durum kodları
+
+            sorted_results = sorted(all_results, key=sort_key)
+            
+            for path, status in sorted_results:
+                if 200 <= status < 300:
+                    print(f"{GREEN}/{path:<20} ({status}){RESET}")
+                elif 300 <= status < 400:
+                    print(f"{YELLOW}/{path:<20} ({status}){RESET}")
+                elif status == 404:
+                    print(f"{RED}/{path:<20} ({status}){RESET}")
+                else:
+                    print(f"/{path:<20} ({status})")
+        else:
+            print("[*] Raporlama için '-v' parametresi aktif edilmediğinden özet geçildi.")
+            
+        sys.exit(0)
+
+if __name__ == "__main__":
+    main()
