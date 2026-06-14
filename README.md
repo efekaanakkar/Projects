@@ -31,7 +31,7 @@ Projelerin tamamı Python3 ile yazılmıştır ve harici bağımlılıkları min
 
 ```bash
 # Ana depoyu sisteminize indirin
-git clone [https://github.com/kullaniciadi/Projects.git](https://github.com/efekaanakkar/Projects.git)
+git clone [https://github.com/efekaanakkar/Projects.git](https://github.com/efekaanakkar/Projects.git)
 
 # Depo dizinine girin
 cd Projects
