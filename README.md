@@ -4,7 +4,7 @@ Bu depo, siber güvenlik, sızma testleri (Pentesting) ve sistem analizleri içi
 
 ---
 
-## 🐺 Projeler ve Araç Listesi
+## Projeler ve Araç Listesi
 
 Depo içerisinde yer alan aktif projeler ve kısa açıklamaları aşağıdadır. Her projenin kendi dizini içerisinde detaylı kullanım kılavuzu (`README.md`) yer almaktadır.
 
