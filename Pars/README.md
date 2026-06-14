@@ -29,7 +29,7 @@ Herhangi bir harici bağımlılığı yoktur. Python3 kurulu olan her sistemde d
 
 ```bash
 # Depoyu klonlayın
-git clone [https://github.com/kullaniciadi/Pars.git](https://github.com/kullaniciadi/Pars.git)
+git clone [https://github.com/efekaanakkar/Pars.git](https://github.com/efekaanakkar/Pars.git)
 
 # Proje dizinine girin
 cd Pars
