@@ -37,7 +37,7 @@ Aracın çalışması için sisteminizde Python3 ve `requests` kütüphanesinin 
 
 ```bash
 # Depoyu klonlayın
-git clone [https://github.com/kullaniciadi/Boru.git](https://github.com/kullaniciadi/Boru.git)
+git clone [https://github.com/efekaanakkar/Boru.git](https://github.com/efekaanakkar/Boru.git)
 
 # Proje dizinine girin
 cd Boru
