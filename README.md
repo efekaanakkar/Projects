@@ -8,10 +8,6 @@ Bu depo, siber güvenlik, sızma testleri (Pentesting) ve sistem analizleri içi
 
 Depo içerisinde yer alan aktif projeler ve kısa açıklamaları aşağıdadır. Her projenin kendi dizini içerisinde detaylı kullanım kılavuzu (`README.md`) yer almaktadır.
 
-### 1. 🐺 BÖRÜ (v1.0 & v1.1) - Gelişmiş Dizin Tarama Aracı
-Web sitelerindeki gizli dizinleri ve dosyaları tespit etmek için geliştirilmiş, akıllı filtreleme ve canlı gösterge (Dirb tarzı) özelliklerine sahip gelişmiş bir Directory Brute-Forcer.
-* **Öne Çıkan Özellik:** `Attack` ve `Peace` modları, Ctrl+C ile akıllı önem sırası raporlaması.
-* **Dizin:** `./Boru/`
 
 ### 1. 🐆 PARS - Multi-Threaded Port Tarayıcı
 Hedef sistemlerdeki açık kapıları tespit etmek için Python'ın native socket yapısını kullanan, yüksek hızlı ve eşzamanlı (Multi-threaded) çalışan bir port tarama aracı.
