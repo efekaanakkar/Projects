@@ -1,31 +1,31 @@
 import re
 
-def password_strength(password):
+def Parola_Gücü(password):
     score = 0
 
-    # Uzunluk
+    # Uzunluk Kontrolü
     if len(password) >= 8:
         score += 2
-    if len(password) >= 12:
+    if len(password) >= 10:
         score += 3
 
-    # Küçük harf
+    # Küçük Harf Kontrolü
     if re.search(r"[a-z]", password):
         score += 1
 
-    # Büyük harf
+    # Büyük Harf Kontrolü
     if re.search(r"[A-Z]", password):
-        score += 1
+        score += 2
 
-    # Rakam
+    # Rakam Kontrolü
     if re.search(r"[0-9]", password):
-        score += 1
+        score += 2
 
-    # Özel karakter
+    # Özel Karakter Kontrolü
     if re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
         score += 2
 
-    # Sonuç
+    # Sonuçlar
     if score <= 4:
         return "🔴 Zayıf", score
     elif score <= 7:
@@ -34,10 +34,10 @@ def password_strength(password):
         return "🟢 Güçlü", score
 
 
-# Kullanıcıdan şifre al
+
 password = input("Şifreni gir: ")
 
-result, score = password_strength(password)
+result, score = Parola_Gücü(password)
 
 print("\nSonuç:", result)
-print("Skor:", score, "/ 6")
+print("Skor:", score, "/ 10")
