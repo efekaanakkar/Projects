@@ -4,7 +4,7 @@ import sys
 import time
 import requests
 
-# Renklendirme için terminal kodları
+# Renklendirme İçin Terminal Kodları
 GREEN = "\033[92m"
 YELLOW = "\033[93m"
 RED = "\033[91m"
@@ -20,7 +20,7 @@ def print_banner():
 def main():
     print_banner()
     
-    # Argümanların tanımlanması
+    # Argümanların Tanımlanması
     parser = argparse.ArgumentParser(description="Börü - Gelişmiş Dizin Tarama Aracı")
     parser.add_argument("--url", required=True, help="Hedef URL (Örn: http://example.com)")
     parser.add_argument("--wordlist", required=True, help="Wordlist dosyasının yolu")
@@ -30,10 +30,10 @@ def main():
     
     args = parser.parse_args()
     
-    # URL sonundaki slash kontrolü
+    # URL Sonundaki Slash Kontrolü
     target_url = args.url.rstrip('/')
     
-    # Wordlist okuma
+    # Wordlist Okuma
     try:
         with open(args.wordlist, 'r', encoding='utf-8', errors='ignore') as f:
             words = [line.strip() for line in f if line.strip() and not line.startswith('#')]
@@ -47,10 +47,10 @@ def main():
     print(f"[+] Toplam Kelime: {len(words)}\n")
     print("-" * 50)
 
-    # İstekler arası gecikme süresi (Peace modu için)
+    # İstekler Arası Gecikme Süresi (Peace Modu İçin)
     delay = 0.5 if args.attackmode == "Peace" else 0.0
     
-    # Tüm logları tutacağımız liste (Ctrl+C durumunda sıralamak için)
+    # Tüm Logları Tutacağımız Liste (Ctrl+C Durumunda Sıralamak İçin)
     all_results = []
 
     try:
@@ -60,20 +60,20 @@ def main():
             full_url = f"{target_url}/{path}"
             
             try:
-                # İstek gönderimi (User-Agent ekleyerek bazı basit engelleri aşması için)
+                # İstek Gönderimi (User-Agent Ekleyerek Bazı Basit Engelleri Aşması İçin)
                 headers = {'User-Agent': 'Boru-Scanner/1.0'}
                 response = requests.get(full_url, headers=headers, timeout=5, allow_redirects=False)
                 status = response.status_code
                 
-                # Sonucu kaydet
+                # Sonucu Kaydet
                 all_results.append((path, status))
                 
-                # Ekrana yazdırma mantığı
+                # Ekrana Yazdırma Mantığı
                 if status == 200:
                     print(f"{GREEN}/{path:<20} ({status}){RESET}")
                 else:
-                    # Sadece 200 bulunca yazdırılacak alan (Eğer verbose kapalıysa)
-                    # Ama verbose (-v) açıksa her şeyi yazdırır
+                    # Sadece 200 Bulunca Yazdırılacak Alan (Eğer Verbose Kapalıysa)
+                    # Ama Verbose (-v) Açıksa Her Şeyi Yazdırır
                     if args.verbose:
                         if status in [301, 302]:
                             print(f"{YELLOW}/{path:<20} ({status} - Redirect){RESET}")
@@ -86,7 +86,7 @@ def main():
                 if args.verbose:
                     print(f"{RED}/{path:<20} (Bağlantı Hatası){RESET}")
                     
-            # Peace modundaysa belirlenen süre kadar dinlen
+            # Peace Modundaysa Belirlenen Süre Kadar Dinlen
             if delay > 0:
                 time.sleep(delay)
                 
