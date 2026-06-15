@@ -8,10 +8,10 @@ Barbaros, kullanıcıların belirlediği şifrelerin güvenliğini siber güvenl
 
 Barbaros, şifrenizi şu metriklere göre değerlendirir:
 
-* 📏 **Uzunluk Kontrolü:** Şifre en az 8 karakter ise (+2 puan), 12 karakter veya üzerindeyse (+3 puan).
+* 📏 **Uzunluk Kontrolü:** Şifre en az 8 karakter ise (+2 puan), 10 karakter veya üzerindeyse (+3 puan).
 * 🔤 **Karakter Çeşitliliği:** * Küçük harf içeriyorsa (`[a-z]`) (+1 puan)
-  * Büyük harf içeriyorsa (`[A-Z]`) (+1 puan)
-  * Rakam içeriyorsa (`[0-9]`) (+1 puan)
+  * Büyük harf içeriyorsa (`[A-Z]`) (+2 puan)
+  * Rakam içeriyorsa (`[0-9]`) (+2 puan)
   * Özel karakter içeriyorsa (`!@#$%^&*` vb.) (+2 puan)
 
 ### 📊 Güvenlik Seviyeleri
