@@ -9,7 +9,7 @@ def Parola_Gücü(password):
         Güç_Puanı += 2
 
     if re.search(r"[a-z]", password):
-        Güç_Puanı += 2
+        Güç_Puanı += 1
 
     if re.search(r"[A-Z]", password):
         Güç_Puanı += 2
