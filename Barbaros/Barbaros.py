@@ -3,10 +3,10 @@ import re
 def Parola_Gücü(password):
     Güç_Puanı = 0
 
-    if len(password) >= 8:
-        Güç_Puanı += 2
-    elif len(password) >= 10:
+    if len(password) >= 10:
         Güç_Puanı += 3
+    elif len(password) >= 8:
+        Güç_Puanı += 2
 
     if re.search(r"[a-z]", password):
         Güç_Puanı += 2
