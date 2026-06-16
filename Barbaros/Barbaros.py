@@ -1,5 +1,3 @@
-import re
-
 def Parola_Gücü(password):
     Güç_Puanı = 0
 
@@ -8,16 +6,17 @@ def Parola_Gücü(password):
     elif len(password) >= 8:
         Güç_Puanı += 2
 
-    if re.search(r"[a-z]", password):
+    if any(harf.islower() for harf in password):
         Güç_Puanı += 1
 
-    if re.search(r"[A-Z]", password):
+    if any(harf.isupper() for harf in password):
         Güç_Puanı += 2
 
-    if re.search(r"[0-9]", password):
+    if any(harf.isdigit() for harf in password):
         Güç_Puanı += 2
 
-    if re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+    Özel = "!@#$%^&*(),.?\":{}|<>"
+    if any(harf in Özel for harf in password):
         Güç_Puanı += 2
 
     if Güç_Puanı <= 4:
@@ -35,5 +34,3 @@ result, Güç_Puanı = Parola_Gücü(password)
 
 print("\nSonuç:", result)
 print("Güç_Puanı:", Güç_Puanı, "/ 10")
-
-
