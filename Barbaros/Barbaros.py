@@ -21,11 +21,11 @@ def Parola_Gücü(password):
         Güç_Puanı += 2
 
     if Güç_Puanı <= 4:
-        return "🔴 Zayıf", Güç_Puanı
+        return " Zayıf", Güç_Puanı
     elif Güç_Puanı <= 7:
-        return "🟡 Orta", Güç_Puanı
+        return " Orta", Güç_Puanı
     else:
-        return "🟢 Güçlü", Güç_Puanı
+        return " Güçlü", Güç_Puanı
 
 
 
