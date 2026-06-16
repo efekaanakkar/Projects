@@ -1,43 +1,39 @@
 import re
 
 def Parola_Gücü(password):
-    score = 0
+    Güç_Puanı = 0
 
-    # Uzunluk Kontrolü
     if len(password) >= 8:
-        score += 2
-    if len(password) >= 10:
-        score += 3
+        Güç_Puanı += 2
+    elif len(password) >= 10:
+        Güç_Puanı += 3
 
-    # Küçük Harf Kontrolü
     if re.search(r"[a-z]", password):
-        score += 1
+        Güç_Puanı += 2
 
-    # Büyük Harf Kontrolü
     if re.search(r"[A-Z]", password):
-        score += 2
+        Güç_Puanı += 2
 
-    # Rakam Kontrolü
     if re.search(r"[0-9]", password):
-        score += 2
+        Güç_Puanı += 2
 
-    # Özel Karakter Kontrolü
     if re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
-        score += 2
+        Güç_Puanı += 2
 
-    # Sonuçlar
-    if score <= 4:
-        return "🔴 Zayıf", score
-    elif score <= 7:
-        return "🟡 Orta", score
+    if Güç_Puanı <= 4:
+        return "🔴 Zayıf", Güç_Puanı
+    elif Güç_Puanı <= 7:
+        return "🟡 Orta", Güç_Puanı
     else:
-        return "🟢 Güçlü", score
+        return "🟢 Güçlü", Güç_Puanı
 
 
 
 password = input("Şifreni gir: ")
 
-result, score = Parola_Gücü(password)
+result, Güç_Puanı = Parola_Gücü(password)
 
 print("\nSonuç:", result)
-print("Skor:", score, "/ 10")
+print("Güç_Puanı:", Güç_Puanı, "/ 10")
+
+
